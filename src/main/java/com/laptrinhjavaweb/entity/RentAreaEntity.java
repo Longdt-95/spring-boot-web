@@ -3,7 +3,7 @@ package com.laptrinhjavaweb.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rentare")
+@Table(name = "rentarea")
 public class RentAreaEntity extends BaseEntity{
 
 	private static final long serialVersionUID = 1095447262902726777L;

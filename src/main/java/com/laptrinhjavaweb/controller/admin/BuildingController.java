@@ -37,8 +37,11 @@ public class BuildingController {
 	}
 
 	@RequestMapping(value = "/admin/building-edit", method = RequestMethod.GET)
-	public ModelAndView buildingEdit() {
+	public ModelAndView buildingEdit(@ModelAttribute("newModel") BuildingDTO buildingDTO) {
 		ModelAndView mav = new ModelAndView("admin/building/edit");
+		mav.addObject("buildingTypes", buildingService.getBuildingTypes());
+		mav.addObject("districts", districtService.getDistricts());
+		mav.addObject("newModel", new BuildingDTO());
 		return mav;
 	}
 }

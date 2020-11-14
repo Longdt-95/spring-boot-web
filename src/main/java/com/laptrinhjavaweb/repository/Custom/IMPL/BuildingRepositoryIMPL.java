@@ -1,4 +1,4 @@
-package com.laptrinhjavaweb.repository.Custom.IMPL;
+package com.laptrinhjavaweb.repository.custom.impl;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -9,18 +9,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.laptrinhjavaweb.builder.BuildingSearchBuilder;
 import com.laptrinhjavaweb.entity.BuildingEntity;
-import com.laptrinhjavaweb.repository.Custom.BuildingRepositoryCustom;
+import com.laptrinhjavaweb.repository.custom.BuildingRepositoryCustom;
 
-@Repository
-public class BuildingRepositoryIMPL implements BuildingRepositoryCustom {
+public class BuildingRepositoryImpl implements BuildingRepositoryCustom{
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Transactional
 	@Override
 	public List<BuildingEntity> getBuildings(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM building b");
@@ -74,12 +74,12 @@ public class BuildingRepositoryIMPL implements BuildingRepositoryCustom {
 				if (!field.getName().startsWith("rentPrice") && !field.getName().startsWith("rentArea")
 						&& !field.getName().equals("types") && !field.getName().equals("staffId")) {
 					if (field.getType().getName().equals("java.lang.String")) {
-						if (field.get(buildingSearchBuilder) != null) {
+						if (field.get(buildingSearchBuilder) != null && !field.get(buildingSearchBuilder).toString().isEmpty()) {
 							sql.append(" and b." + field.getName().toLowerCase() + " like '%"
 									+ field.get(buildingSearchBuilder) + "%'");
 						}
 					} else if (field.getType().getName().equals("java.lang.Integer")) {
-						if (field.get(buildingSearchBuilder) != null) {
+						if (field.get(buildingSearchBuilder) != null && !field.get(buildingSearchBuilder).toString().isEmpty()) {
 							sql.append(" and b." + field.getName().toLowerCase() + " = "
 									+ field.get(buildingSearchBuilder));
 						}
@@ -93,4 +93,5 @@ public class BuildingRepositoryIMPL implements BuildingRepositoryCustom {
 		}
 
 	}
+
 }

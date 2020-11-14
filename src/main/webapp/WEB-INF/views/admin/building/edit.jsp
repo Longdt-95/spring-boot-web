@@ -1,6 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@include file="/common/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
 <c:url var="buildingApi" value="/api/buildings" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Chỉnh sửa bài viết</title>
@@ -35,48 +37,42 @@
 				<!-- /.page-header -->
 
 				<div class="row">
-					<form class="form-horizontal" role="form" id="formEdit">
+					<form:form cssClass="form-horizontal" commandName="newModel"
+						id="formEdit" method="POST">
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">
+							<label class="col-sm-3 control-label no-padding-right" for="name">
 								Tên tòa nhà </label>
-
 							<div class="col-sm-9">
-								<input type="text" id="name" class="col-xs-10 col-sm-10"
-									name="name">
+								<form:input path="name" cssClass="col-xs-10 col-sm-10" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">
-								Sô tầng hầm </label>
-
+							<label class="col-sm-3 control-label no-padding-right" for="street">
+								Đường </label>
 							<div class="col-sm-9">
-								<input type="text" id="street" class="col-xs-10 col-sm-10"
-									name="street">
+								<form:input path="street" cssClass="col-xs-10 col-sm-10" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">
+							<label class="col-sm-3 control-label no-padding-right" for="district">
 								Quận </label>
 							<div class="col-sm-9">
-								<select name="" id="" style="display: block; width: 80%;">
-									<option value="">--Chọn quận--</option>
-									<option value="">Quận 1</option>
-									<option value="">Quận 2</option>
-									<option value="">Quận 3</option>
-									<option value="">Quận 4</option>
-								</select>
+								<form:select path="district" id="district"
+									style="display: block; width: 50%;">
+									<form:option value="" label="---chọn quận---" />
+									<form:options items="${districts}" />
+								</form:select>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">Kết
+							<label class="col-sm-3 control-label no-padding-right" for="structure">Kết
 								cấu </label>
 							<div class="col-sm-9">
-								<input type="text" id="structure" class="col-xs-10 col-sm-10"
-									name="structure">
+								<form:input path="structure" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">Số
+							<label class="col-sm-3 control-label no-padding-right" for="numberOfBasement">Số
 								tầng hầm </label>
 							<div class="col-sm-9">
 								<input type="number" id="numberOfBasement"
@@ -84,166 +80,137 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right" for="">
+							<label class="col-sm-3 control-label no-padding-right" for="floorArea">
 								Diện tích sàn </label>
 							<div class="col-sm-9">
-								<input type="number" id="floorArea" class="col-xs-10 col-sm-10"
-									name="floorArea">
+								<input type="number" id="floorArea" class="col-xs-10 col-sm-10" name="floorArea" value="${newModel.floorArea}">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Hướng</label>
+								for="direction"> Hướng</label>
 							<div class="col-sm-9">
-								<input type="text" id="direction" class="col-xs-10 col-sm-10"
-									name="direction">
+								<form:input path="direction" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Hạng</label>
+								for="level"> Hạng</label>
 							<div class="col-sm-9">
-								<input type="text" id="level" class="col-xs-10 col-sm-10"
-									name="level">
+								<form:input path="level" cssClass="col-xs-10 col-sm-10" />		
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Giá thuê</label>
+								for="rentPrice"> Giá thuê</label>
 							<div class="col-sm-9">
 								<input type="number" id="rentPrice" class="col-xs-10 col-sm-10"
-									name="rentPrice">
+									name="rentPrice" value="${newModel.rentPrice}">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Chi tiết giá thuê</label>
+								for="rentPriceDescription"> Chi tiết giá thuê</label>
 							<div class="col-sm-9">
-								<input type="text" id="rentPriceDescription"
-									class="col-xs-10 col-sm-10" name="rentPriceDescription">
+								<form:input path="rentPriceDescription" cssClass="col-xs-10 col-sm-10" />		
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Phí dịch vụ</label>
+								for="serviceFee"> Phí dịch vụ</label>
 							<div class="col-sm-9">
-								<input type="text" id="serviceFee" class="col-xs-10 col-sm-10"
-									name="serviceFee">
+								<form:input path="serviceFee" cssClass="col-xs-10 col-sm-10" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Phí ô tô</label>
+								for="carFee"> Phí ô tô</label>
 							<div class="col-sm-9">
-								<input type="text" id="carFee" class="col-xs-10 col-sm-10"
-									name="carFee">
+								<form:input path="carFee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Phí xe máy</label>
+								for="motoFee"> Phí xe máy</label>
 							<div class="col-sm-9">
-								<input type="text" id="motoFee" class="col-xs-10 col-sm-10"
-									name="motoFee">
+								<form:input path="motoFee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Phí ngoài giờ</label>
+								for="overtimeFee"> Phí ngoài giờ</label>
 							<div class="col-sm-9">
-								<input type="text" id="overtimeFee" class="col-xs-10 col-sm-10"
-									name="overtimeFee">
+								<form:input path="overtimeFee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Tiền nước</label>
+								for="waterFee"> Tiền nước</label>
 							<div class="col-sm-9">
-								<input type="text" id="waterFee" class="col-xs-10 col-sm-10"
-									name="waterFee">
+								<form:input path="waterFee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Tiền điện</label>
+								for="electricityFee"> Tiền điện</label>
 							<div class="col-sm-9">
-								<input type="text" id="electricityFee"
-									class="col-xs-10 col-sm-10" name="electricityFee">
+								<form:input path="electricityFee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Tiền đặt cọc</label>
+								for="deposit"> Tiền đặt cọc</label>
 							<div class="col-sm-9">
-								<input type="text" id="deposit" class="col-xs-10 col-sm-10"
-									name="deposit">
+								<form:input path="deposit" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Thanh toán</label>
+								for="payment"> Thanh toán</label>
 							<div class="col-sm-9">
-								<input type="text" id="payment" class="col-xs-10 col-sm-10"
-									name="payment">
+								<form:input path="payment" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Thời gian thuê</label>
+								for="rentTime"> Thời gian thuê</label>
 							<div class="col-sm-9">
-								<input type="text" id="rentTime" class="col-xs-10 col-sm-10"
-									name="rentTime">
+								<form:input path="rentTime" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Thời gian trang trí</label>
+								for="decorationTime"> Thời gian trang trí</label>
 							<div class="col-sm-9">
-								<input type="text" id="decorationTime"
-									class="col-xs-10 col-sm-10" name="decorationTime">
+								<form:input path="decorationTime" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Người môi giới</label>
+								for="brokeragetee"> Người môi giới</label>
 							<div class="col-sm-9">
-								<input type="number" id="brokeragetee"
-									class="col-xs-10 col-sm-10" name="brokeragetee">
+								<form:input path="brokeragetee" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="rentAreas"> Ghi chú</label>
+								for="note"> Ghi chú</label>
 							<div class="col-sm-9">
-								<input type="text" id="note" class="col-xs-10 col-sm-10"
-									name="note">
+								<form:input path="note" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
 								for="rentAreas"> Diện tích thuê</label>
 							<div class="col-sm-9">
-								<input type="text" id="rentArea" class="col-xs-10 col-sm-10"
-									name="rentArea">
+								<form:input path="rentAreas" cssClass="col-xs-10 col-sm-10" />	
 							</div>
 						</div>
-
-
-
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
 								for="buildingTypes"> Loại tòa nhà </label>
 							<div class="col-sm-9">
-								<label class="checkbox-inline "> <input type="checkbox"
-									id="buildingTypes" value="TANG_TRET" name="buildingTypes">
-									<b>Tầng trệt</b>
-								</label> <label class="checkbox-inline"> <input type="checkbox"
-									id="buildingTypes" value="NGUYEN_CAN" name="buildingTypes">
-									<b> Nguyên căn</b>
-								</label> <label class="checkbox-inline"> <input type="checkbox"
-									id="buildingTypes" value="NOI_THAT" name="buildingTypes">
-									<b>Nội thất</b>
-								</label>
+								<form:checkboxes items="${buildingTypes}" path="types" />
 							</div>
 						</div>
 
@@ -254,40 +221,40 @@
 								<button type="button" class="btn btn-success">Hủy</button>
 							</div>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<script>
-	$('#btnAddBuilding').click(function(){
-        var data = {};
-        var fromData = $('#formEdit').serializeArray();
-        var buildingTypes = [];
-        $.each(fromData, function (index, values) { 
-             if (values.name === 'buildingTypes') {
-                buildingTypes.push(values.value);
-             } else {
-                 data['' +values.name+ ''] = values.value;
-             }
-        });
-        data['buildingType'] = buildingTypes;
-        $.ajax({
-            type: 'POST',
-            url: '${buildingApi}',
-            data: JSON.stringify(data),
-            dataType: "json",
-            contentType : "application/json",
-            success: function (response) {
-                console.log('success');
-            },
-            console: function(response){
-                console.log('success');
-                console.log(response);
-            }
-        });
-    });
+		$('#btnAddBuilding').click(function() {
+			var data = {};
+			var fromData = $('#formEdit').serializeArray();
+			var buildingTypes = [];
+			$.each(fromData, function(index, values) {
+				if (values.name === 'buildingTypes') {
+					buildingTypes.push(values.value);
+				} else {
+					data['' + values.name + ''] = values.value;
+				}
+			});
+			data['buildingType'] = buildingTypes;
+			$.ajax({
+				type : 'POST',
+				url : '${buildingApi}',
+				data : JSON.stringify(data),
+				dataType : "json",
+				contentType : "application/json",
+				success : function(response) {
+					console.log('success');
+				},
+				console : function(response) {
+					console.log('success');
+					console.log(response);
+				}
+			});
+		});
 	</script>
 </body>
 </html>

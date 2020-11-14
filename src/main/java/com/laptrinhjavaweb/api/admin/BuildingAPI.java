@@ -19,14 +19,15 @@ public class BuildingAPI {
 	@Autowired
 	private IBuildingService buildingService;
 	
-	@GetMapping("/buildings")
+	@GetMapping("/api/buildings")
 	public List<BuildingDTO> getBuildingsSearch(@RequestParam(required = false) Map<String, String> requestParams,
 			@RequestParam(required = false) String[] type) {
 		return buildingService.getBuildings(requestParams, type);
 	}
 	
-	@PostMapping("/buildings")
+	@PostMapping("/api/buildings")
 	public BuildingDTO saveBuilding(@RequestBody BuildingDTO buildingDTO) {
-		return buildingService.saveBuilding(buildingDTO);
+	//	return buildingService.saveBuilding(buildingDTO);
+		return new BuildingDTO();
 	}
 }

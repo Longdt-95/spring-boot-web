@@ -69,7 +69,8 @@
 											<br>
 											<div class="col-sm-4 col-xs-6 margin-top">
 												<label for="district">Quận hiện có</label>
-												<form:select path="district" id="district" style="display: block; width: 80%;">
+												<form:select path="district" id="district"
+													style="display: block; width: 80%;">
 													<form:option value="" label="---chọn quận---" />
 													<form:options items="${districts}" />
 												</form:select>
@@ -99,40 +100,45 @@
 											</div>
 											<br>
 											<div class="col-sm-3 col-xs- margin-top">
-												<label for="rentAreaFrom">Diện tích từ</label> <input type="number"
-													class="form-control" id="rentAreaFrom" value="" name="rentAreaFrom"/>
+												<label for="rentAreaFrom">Diện tích từ</label> <input
+													type="number" class="form-control" id="rentAreaFrom"
+													value="${modelSearch.rentAreaFrom}" name="rentAreaFrom" />
 											</div>
 											<div class="col-sm-3 col-xs-6 margin-top">
-												<label for="rentAreaTo">Diện tích đến</label> <input type="number"
-													class="form-control" id="rentAreaTo" value="" name="rentAreaTo"/>
+												<label for="rentAreaTo">Diện tích đến</label> <input
+													type="number" class="form-control" id="rentAreaTo"
+													value="${modelSearch.rentAreaTo}" name="rentAreaTo" />
 											</div>
 											<div class="col-sm-3 col-xs-6 margin-top">
-												<label for="rentPriceFrom">Giá thuê từ</label> <input type="number"
-													class="form-control" id="rentPriceFrom" value="" name="rentPriceFrom"/>
+												<label for="rentPriceFrom">Giá thuê từ</label> <input
+													type="number" class="form-control" id="rentPriceFrom"
+													value="${modelSearch.rentPriceFrom}" name="rentPriceFrom" />
 											</div>
 											<div class="col-sm-3 col-xs-6 margin-top">
-												<label for="rentPriceTo">Giá thuê đến</label> <input type="number"
-													class="form-control" id="rentPriceTo" value="" name="rentPriceTo"/>
+												<label for="rentPriceTo">Giá thuê đến</label> <input
+													type="number" class="form-control" id="rentPriceTo"
+													value="${modelSearch.rentPriceTo}" name="rentPriceTo" />
 											</div>
 											<br />
 											<div class="col-sm-4 col-xs-6 margin-top">
-												<label for="managerName">Tên quản lý</label> <input type="text"
-													class="form-control" id="managerName" value="" name="managerName"/>
+												<label for="managerName">Tên quản lý</label>
+												<form:input path="managerName" cssClass="form-control" />
 											</div>
 											<div class="col-sm-4 col-xs-6 margin-top">
-												<label for="managerPhone">Điện thoại quản lý</label> <input
-													type="text" class="form-control" id="managerPhone" value="" name="managerPhone"/>
+												<label for="managerPhone">Điện thoại quản lý</label>
+												<form:input path="managerPhone" cssClass="form-control" />
 											</div>
 											<div class="col-sm-4 col-xs-6 margin-top">
 												<label for="staffId">Chọn nhân viên phụ trách</label>
-												<form:select path="staffId" id="staffId" style="display: block; width: 80%;">
+												<form:select path="staffId" id="staffId"
+													style="display: block; width: 80%;">
 													<form:option value="-1" label="---chọn nhân viên---" />
 													<form:options items="${staffMap}" />
 												</form:select>
 											</div>
-											<br/>
-											<div class="col-xs-6 margin-top" >
-											    <form:checkboxes items="${buildingTypes}" path="types" />
+											<br />
+											<div class="col-xs-6 margin-top">
+												<form:checkboxes items="${buildingTypes}" path="types" />
 											</div>
 											<div class="col-sm-12 margin-top">
 												<button type="button" class="btn btn-success" id="btnSearch">Tìm
@@ -144,10 +150,12 @@
 							</div>
 						</div>
 						<div class="pull-right">
-							<button class="btn-success" title="thêm tòa nhà"
-								id="btnAddBuilding">
-								<i class="ace-icon fa fa-cloud-upload "></i>
-							</button>
+							<a href="http://localhost:8080/spring-boot/admin/building-edit">
+								<button class="btn-success" title="thêm tòa nhà"
+									id="btnAddBuilding">
+									<i class="ace-icon fa fa-cloud-upload "></i>
+								</button>
+							</a>
 							<button class="btn-danger" title="xóa tòa nhà"
 								id="btnDeleteBuilding">
 								<i class="ace-icon fa fa-trash-o "></i>
@@ -172,20 +180,23 @@
 								</thead>
 								<tbody>
 									<c:forEach var="item" items="${buildings}">
-										<td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"></td>
-										<td>${item.name}</td>
-										<td>${item.address}</td>
-										<td>${item.managerName}</td>
-										<td>${item.managerPhone}</td>
-										<td>${item.floorArea}</td>
-										<td>${item.rentPrice}</td>
-										<td>${item.serviceFee}</td>
-										<td>
-											<button class="btn-danger" title="giao tòa nhà"
-												onclick="assignmentBuildingModal()">
-												<i class="ace-icon fa fa-pencil-square-o "></i>
-											</button>
-										</td>
+										<tr>
+											<td><input type="checkbox" value="${item.id}"
+												id="checkbox_${item.id}"></td>
+											<td>${item.name}</td>
+											<td>${item.address}</td>
+											<td>${item.managerName}</td>
+											<td>${item.managerPhone}</td>
+											<td>${item.floorArea}</td>
+											<td>${item.rentPrice}</td>
+											<td>${item.serviceFee}</td>
+											<td>
+												<button class="btn-danger" title="giao tòa nhà"
+													onclick="assignmentBuildingModal()">
+													<i class="ace-icon fa fa-pencil-square-o "></i>
+												</button>
+											</td>
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -243,8 +254,11 @@
 						class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 					</a>
 				</div>
-				<!-- /.main-content -->
-				<!--script>
+			</div>
+		</div>
+	</div>
+	<!-- /.main-content -->
+	<!--script>
 					var totalPages = $
 					{
 						model.totalPage
@@ -310,80 +324,80 @@
 								});
 					}
 				</script -->
-				<script>
-					$('#btnSearch').click(function(e) {
-						e.preventDefault();
-						$('#listForm').submit();
-					});
-					function assignmentBuildingModal(buildingId) {
-						openModelAssignmentBuilding();
-						$('#buildingId').val(buildingId);
-					}
+	<script>
+		$('#btnSearch').click(function(e) {
+			e.preventDefault();
+			$('#listForm').submit();
+		});
+		function assignmentBuildingModal(buildingId) {
+			openModelAssignmentBuilding();
+			$('#buildingId').val(buildingId);
+		}
 
-					function openModelAssignmentBuilding() {
-						$('#assignmentbuilding').modal();
-					}
+		function openModelAssignmentBuilding() {
+			$('#assignmentbuilding').modal();
+		}
 
-					$('#btnAssignBuilding').click(
-							function(e) {
-								e.preventDefault();
-								var data = {};
-								data['buildingId'] = $('#buildingId').val();
-								var staffs = $('#staffList').find(
-										'tbody input[type=checkbox]:checked')
-										.map(function() {
-											return $(this).val();
-										}).get();
-								data['staffs'] = staffs;
-								assignStaff(data);
-							});
+		$('#btnAssignBuilding').click(
+				function(e) {
+					e.preventDefault();
+					var data = {};
+					data['buildingId'] = $('#buildingId').val();
+					var staffs = $('#staffList').find(
+							'tbody input[type=checkbox]:checked').map(
+							function() {
+								return $(this).val();
+							}).get();
+					data['staffs'] = staffs;
+					assignStaff(data);
+				});
 
-					function assignStaff(data) {
-						$.ajax({
-							type : "POST",
-							url : "http://localhost:8081/manager-building",
-							data : JSON.stringify(data),
-							dataType : "json",
-							contentType : "application/json",
-							success : function(response) {
-								console.log('success');
-							},
-							console : function(response) {
-								console.log('success');
-								console.log(response);
-							}
-						});
-					};
+		function assignStaff(data) {
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/manager-building",
+				data : JSON.stringify(data),
+				dataType : "json",
+				contentType : "application/json",
+				success : function(response) {
+					console.log('success');
+				},
+				console : function(response) {
+					console.log('success');
+					console.log(response);
+				}
+			});
+		};
 
-					$('#btnDeleteBuilding').click(
-							function(e) {
-								e.preventDefault();
-								var data = {};
-								var buildings = $('#buildingList').find(
-										'tbody input[type=checkbox]:checked')
-										.map(function() {
-											return $(this).val();
-										}).get();
-								data['buildings'] = buildings;
-								deleteBuildings(data);
-							});
+		$('#btnDeleteBuilding').click(
+				function(e) {
+					e.preventDefault();
+					var data = {};
+					var buildings = $('#buildingList').find(
+							'tbody input[type=checkbox]:checked').map(
+							function() {
+								return $(this).val();
+							}).get();
+					data['buildings'] = buildings;
+					deleteBuildings(data);
+				});
 
-					function deleteBuildings(data) {
-						$.ajax({
-							type : "DELETE",
-							url : "http://localhost:8081/delete-building",
-							data : JSON.stringify(data),
-							dataType : "json",
-							contentType : "application/json",
-							success : function(response) {
-								console.log('success');
-							},
-							console : function(response) {
-								console.log('success');
-								console.log(response);
-							}
-						});
-					};
-				</script>
+		function deleteBuildings(data) {
+			$.ajax({
+				type : "DELETE",
+				url : "http://localhost:8081/delete-building",
+				data : JSON.stringify(data),
+				dataType : "json",
+				contentType : "application/json",
+				success : function(response) {
+					console.log('success');
+				},
+				console : function(response) {
+					console.log('success');
+					console.log(response);
+				}
+			});
+		};
+	</script>
 </body>
 </html>
