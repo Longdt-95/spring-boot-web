@@ -41,7 +41,11 @@ public class BuildingController {
 		ModelAndView mav = new ModelAndView("admin/building/edit");
 		mav.addObject("buildingTypes", buildingService.getBuildingTypes());
 		mav.addObject("districts", districtService.getDistricts());
+		if (buildingDTO.getId() != null) {
+			mav.addObject("newModel", buildingService.findById(buildingDTO.getId()));
+		} else {
 		mav.addObject("newModel", new BuildingDTO());
+		}
 		return mav;
 	}
 }

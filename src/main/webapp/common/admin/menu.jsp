@@ -44,9 +44,16 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li>
-                    <a href="<c:url value='/admin/building-list'/>">
+                    <a href="<c:url value='/admin/building-list'/>" id="listBuilding">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS tòa nhà
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                 <li>
+                    <a href="<c:url value='/admin/customer-list'/>">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        DS khách hàng
                     </a>
                     <b class="arrow"></b>
                 </li>

@@ -9,9 +9,36 @@ public class UserDTO extends BaseDTO {
     private String fullName;
     private String password;
     private Integer status;
+    private String checked = "";
+    private String phone;
+	private String email;
     private List<RoleDTO> roles = new ArrayList<>();
 
-    public String getUserName() {
+    public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUserName() {
         return userName;
     }
 

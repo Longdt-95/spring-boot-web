@@ -29,7 +29,8 @@ public class BuildingDTO extends BaseDTO<BuildingDTO> {
 	private String[] types = new String[] {};
 	private String rentArea;
 	private String[] rentAreas = new String[] {};
-	private Long staffId;
+	private String staffId;
+	private Long[] staffIds;
 	private String address;
 	private String managerName;
 	private String managerPhone;
@@ -37,6 +38,14 @@ public class BuildingDTO extends BaseDTO<BuildingDTO> {
 	private Integer rentAreaTo;
 	private Integer rentPriceFrom;
 	private Integer rentPriceTo;
+
+	public Long[] getStaffIds() {
+		return staffIds;
+	}
+
+	public void setStaffIds(Long[] staffIds) {
+		this.staffIds = staffIds;
+	}
 
 	public String getManagerName() {
 		return managerName;
@@ -94,11 +103,11 @@ public class BuildingDTO extends BaseDTO<BuildingDTO> {
 		this.address = address;
 	}
 
-	public Long getStaffId() {
+	public String getStaffId() {
 		return staffId;
 	}
 
-	public void setStaffId(Long staffId) {
+	public void setStaffId(String staffId) {
 		this.staffId = staffId;
 	}
 

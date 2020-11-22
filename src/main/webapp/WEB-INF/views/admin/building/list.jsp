@@ -2,8 +2,9 @@
 <c:url var="buildingListURL" value="/admin/building-list" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<c:url var="newAPI" value="/api/new" />
-<c:url var="newURL" value="/admin/new-list" />
+<c:url var="buildingAPI" value="/api/building" />
+<c:url var="loadStaff" value="/api/assign-building"/>
+<c:url var="assignBuilding" value="/api/assignment-building"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -192,9 +193,14 @@
 											<td>${item.serviceFee}</td>
 											<td>
 												<button class="btn-danger" title="giao tòa nhà"
-													onclick="assignmentBuildingModal()">
+													id="btnAssignmentBuilding" buildingId = "${item.id}">
 													<i class="ace-icon fa fa-pencil-square-o "></i>
-												</button>
+												</button> <c:url var="updateBuildingURL" value="/admin/building-edit">
+													<c:param name="id" value="${item.id}" />
+												</c:url> <a class="btn btn-sm btn-primary btn-edit"
+												data-toggle="tooltip" title="Cập nhật tòa nhà"
+												href='${updateBuildingURL}'><i
+													class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
 											</td>
 										</tr>
 									</c:forEach>
@@ -222,23 +228,9 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td><label class="checkbox-inline "> <input
-														type="checkbox" value="2" class="no-margin-top"
-														id="checkbox_2">
-												</label></td>
-												<td class="margin-top">Nguyễn văn A</td>
-											</tr>
-											<tr>
-												<td><label class="checkbox-inline "> <input
-														type="checkbox" value="3" class="no-margin-top"
-														id="checkbox_3">
-												</label></td>
-												<td class="margin-top">Nguyễn văn B</td>
-											</tr>
 										</tbody>
 									</table>
-									<input type="hidden" value="" id="buildingId" name="buildingId">
+									<div id="fieldHidden"></div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
@@ -329,9 +321,46 @@
 			e.preventDefault();
 			$('#listForm').submit();
 		});
-		function assignmentBuildingModal(buildingId) {
-			openModelAssignmentBuilding();
-			$('#buildingId').val(buildingId);
+		/*	function assignmentBuildingModal() {
+				openModelAssignmentBuilding();
+				loadUserAssignForBuilding();
+			} */
+
+		$(function() {
+			$(document).on("click", "#buildingList button#btnAssignmentBuilding", function (e) {
+				openModelAssignmentBuilding();
+				loadUserAssignForBuilding($(this).attr("buildingId"));
+			});
+		});
+
+		function loadUserAssignForBuilding(buildingId) {
+			var buildingIdHidden = '<input type ="hidden" name ="buildingId" value ='
+					+ buildingId + ' id = "buildingId"/>';
+			$('#fieldHidden').html(buildingIdHidden);
+			$.ajax({
+						url : '${loadStaff}?role=STAFF&buildingId='
+								+ buildingId,
+						type : 'GET',
+						dataType : 'json',
+						success : function(result) {
+							var row = '';
+							$
+									.each(
+											result,
+											function(index, staff) {
+												row += '<tr>';
+												row += '<td class = "text-center"> <input type="checkbox" name = "checkList" value = '+ staff.id+' id= "checkbox_'+staff.id+'" class = "check-box-element" '+staff.checked+ '/> </td>';
+												row += '<td class = "text-center">'
+														+ staff.fullName
+														+ '</td>';
+												row += '</tr>';
+											});
+							$('#staffList tBody').html(row);
+						},
+						error : function(res) {
+							console.log(res);
+						}
+					});
 		}
 
 		function openModelAssignmentBuilding() {
@@ -348,22 +377,42 @@
 							function() {
 								return $(this).val();
 							}).get();
-					data['staffs'] = staffs;
+					data['staffIds'] = staffs;
 					assignStaff(data);
 				});
+
+		/*	$('#btnEditBuilding').click(function() {
+				var data = $('#buildingId_Edit').val();
+				data['types'] = buildingTypes;
+
+				$.ajax({
+					type : 'POST',
+					url : '${buildingApi}',
+					data : JSON.stringify(data),
+					dataType : "json",
+					contentType : "application/json",
+					success : function(response) {
+						console.log(reponse);
+					},
+					error : function(response) {
+						console.log('fail');
+						console.log(response);
+					}
+				});
+			}); */
 
 		function assignStaff(data) {
 			$.ajax({
 				type : "POST",
-				url : "http://localhost:8081/manager-building",
+				url : "${assignBuilding}",
 				data : JSON.stringify(data),
 				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
 					console.log('success');
 				},
-				console : function(response) {
-					console.log('success');
+				error : function(response) {
+					console.log('fail');
 					console.log(response);
 				}
 			});
@@ -372,28 +421,26 @@
 		$('#btnDeleteBuilding').click(
 				function(e) {
 					e.preventDefault();
-					var data = {};
-					var buildings = $('#buildingList').find(
+					var buildingIds = $('#buildingList').find(
 							'tbody input[type=checkbox]:checked').map(
 							function() {
 								return $(this).val();
 							}).get();
-					data['buildings'] = buildings;
-					deleteBuildings(data);
+					deleteBuildings(buildingIds);
 				});
 
 		function deleteBuildings(data) {
 			$.ajax({
-				type : "DELETE",
-				url : "http://localhost:8081/delete-building",
+				type : 'delete',
+				url : '${buildingAPI}',
 				data : JSON.stringify(data),
 				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
 					console.log('success');
 				},
-				console : function(response) {
-					console.log('success');
+				error : function(response) {
+					console.log('fail');
 					console.log(response);
 				}
 			});

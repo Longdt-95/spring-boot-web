@@ -1,24 +1,19 @@
 package com.laptrinhjavaweb.dto;
 
-import java.util.Date;
+public class CustomerDTO extends BaseDTO<CustomerDTO>{
 
-public class CustomerDTO {
-
-	private long id;
 	private String fullName;
 	private String phone;
 	private String email;
-	private String createdBy;
-	private Date createdDate;
-	private String modifiedBy;
-	private Date modifiedDate;
+	private Long staffId;
 	
-	public long getId() {
-		return id;
+	
+	public Long getStaffId() {
+		return staffId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setStaffId(Long staffId) {
+		this.staffId = staffId;
 	}
 
 	public String getFullName() {
@@ -43,38 +38,6 @@ public class CustomerDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
 	}
 
 }

@@ -114,10 +114,10 @@ public class BuildingEntity extends BaseEntity {
 		this.managerPhone = managerPhone;
 	}
 
-	@OneToMany(mappedBy = "building")
+	@OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
 	private List<RentAreaEntity> rentAres = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany (cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinTable(name = "assignmentbuilding",
 				joinColumns = @JoinColumn(name = "buildingid" ), 
 				inverseJoinColumns = @JoinColumn(name = "staffid"))
