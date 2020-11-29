@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.laptrinhjavaweb.dto.BuildingDTO;
 import com.laptrinhjavaweb.dto.CustomerDTO;
 import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.service.impl.CustomerService;
