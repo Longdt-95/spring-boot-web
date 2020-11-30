@@ -248,10 +248,10 @@
 				type : "POST",
 				url : "${assignCustomer}",
 				data : JSON.stringify(data),
-				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					console.log('success');
+					window.location.href = "<c:url value='/admin/customer-list'/>";
+					alert('add assign success');
 				},
 				error : function(response) {
 					console.log('fail');
@@ -276,10 +276,10 @@
 				type : 'delete',
 				url : '${customerDelete}',
 				data : JSON.stringify(data),
-				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					console.log('success');
+					window.location.href = "<c:url value='/admin/customer-list'/>";
+					alert('delete success');
 				},
 				error : function(response) {
 					console.log('fail');

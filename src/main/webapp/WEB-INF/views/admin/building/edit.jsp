@@ -60,14 +60,8 @@
 							<div class="col-sm-9">
 								<form:select path="district" id="district"
 									style="display: block; width: 50%;">
-									<c:if test="${newModel.district != null}">
-										<form:option value="" label="${newModel.district}"/>
+									<form:option value="" label="---chọn quận---" />
 										<form:options items="${districts}" />
-									</c:if>
-									<c:if test="${newModel.district == null}">
-										<form:option value="" label="---chọn quận---" />
-										<form:options items="${districts}" />
-									</c:if>
 								</form:select>
 							</div>
 						</div>
@@ -257,8 +251,8 @@
 				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					$('#listBuilding').click();
-					console.log('success');
+					window.location.href = "<c:url value='/admin/building-edit?id="+response.id+"'/>";
+					alert('insert success');
 				},
 				error : function(response) {
 					console.log('fail');

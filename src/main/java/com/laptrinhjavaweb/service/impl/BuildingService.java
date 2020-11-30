@@ -180,7 +180,7 @@ public class BuildingService implements IBuildingService {
 		String staffId = entity.getStaffs().stream().map(item -> item.getId().toString())
 				.collect(Collectors.joining(","));
 		result.setStaffId(staffId);
-		result.setDistrict(DistrictEnum.valueOf(entity.getDistrict()).getValue());
+	//	result.setDistrict(DistrictEnum.valueOf(entity.getDistrict()).getValue());
 		result.setAddress(result.getStreet() + "-" + result.getWard() + "-" + result.getDistrict());
 		result.setTypes(result.getType().split(","));
 		return result;

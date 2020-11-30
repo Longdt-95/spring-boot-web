@@ -89,7 +89,8 @@
 				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					console.log(reponse);
+					window.location.href = "<c:url value='/admin/customer-edit?id="+response.id+"'/>";
+					alert('insert success');
 				},
 				error : function(response) {
 					console.log('fail');

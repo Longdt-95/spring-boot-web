@@ -406,10 +406,10 @@
 				type : "POST",
 				url : "${assignBuilding}",
 				data : JSON.stringify(data),
-				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					console.log('success');
+					window.location.href = "<c:url value='/admin/building-list'/>";
+					alert('add assign success');
 				},
 				error : function(response) {
 					console.log('fail');
@@ -434,10 +434,10 @@
 				type : 'delete',
 				url : '${buildingAPI}',
 				data : JSON.stringify(data),
-				dataType : "json",
 				contentType : "application/json",
 				success : function(response) {
-					console.log('success');
+					window.location.href = "<c:url value='/admin/building-list'/>";
+					alert('delete success');
 				},
 				error : function(response) {
 					console.log('fail');
